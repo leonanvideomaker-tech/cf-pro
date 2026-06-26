@@ -20,7 +20,6 @@
       --text-2:       #adaaaa;
       --text-3:       #6e6e6e;
       --accent:       #FF6D29;
-      --accent-light: #ff9063;
       --green:        #30d158;
       --red:          #ff453a;
     }
@@ -35,15 +34,13 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ═══════════════════════════════════════════
-       TELA 1 — AUTH (layout dividido)
-    ═══════════════════════════════════════════ */
+    /* ═══ TELA 1: SPLIT LAYOUT ═══════════════════════ */
     #screen-auth {
       display: flex;
       min-height: 100vh;
     }
 
-    /* ── Painel esquerdo: formulário ── */
+    /* Painel esquerdo */
     .auth-left {
       width: 44%;
       min-height: 100vh;
@@ -51,19 +48,19 @@
       align-items: center;
       justify-content: center;
       padding: 56px 48px;
-      position: relative;
       background: var(--bg);
+      position: relative;
     }
     .auth-left::after {
       content: '';
       position: absolute;
-      right: 0; top: 8%; bottom: 8%;
+      right: 0; top: 10%; bottom: 10%;
       width: 1px;
-      background: linear-gradient(to bottom, transparent, rgba(255,109,41,0.18), transparent);
+      background: linear-gradient(to bottom, transparent, rgba(255,109,41,0.2), transparent);
     }
     .form-inner { width: 100%; max-width: 360px; }
 
-    /* ── Painel direito: personagens ── */
+    /* Painel direito */
     .auth-right {
       flex: 1;
       background: var(--bg-right);
@@ -74,10 +71,26 @@
       position: relative;
       overflow: hidden;
     }
+    .auth-right::before {
+      content: '';
+      position: absolute;
+      top: 20%; left: 50%;
+      transform: translateX(-50%);
+      width: 550px; height: 550px;
+      background: radial-gradient(ellipse, rgba(70,45,180,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .auth-right::after {
+      content: '';
+      position: absolute;
+      bottom: 12%; left: 50%;
+      transform: translateX(-50%);
+      width: 420px; height: 160px;
+      background: radial-gradient(ellipse at bottom, rgba(255,109,41,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-    /* ═══════════════════════════════════════════
-       TELA 2 — DOWNLOADS (card centrado)
-    ═══════════════════════════════════════════ */
+    /* ═══ TELA 2: DOWNLOAD ════════════════════════════ */
     #screen-download {
       min-height: 100vh;
       display: flex;
@@ -85,24 +98,12 @@
       justify-content: center;
       padding: 24px;
       background: var(--bg);
-      position: relative;
-    }
-    #screen-download::before {
-      content: '';
-      position: fixed; inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(90,60,200,0.07) 0%, transparent 60%);
-      pointer-events: none;
     }
 
     .hidden { display: none !important; }
 
-    /* ═══════════════════════════════════════════
-       LOGO
-    ═══════════════════════════════════════════ */
-    .logo {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 40px;
-    }
+    /* ═══ LOGO ════════════════════════════════════════ */
+    .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 40px; }
     .logo-icon {
       width: 38px; height: 38px;
       background: linear-gradient(135deg, #ff9063, #FF6D29);
@@ -131,9 +132,7 @@
       font-family: 'Space Grotesk', sans-serif;
     }
 
-    /* ═══════════════════════════════════════════
-       FORMULÁRIO
-    ═══════════════════════════════════════════ */
+    /* ═══ FORMULÁRIO ══════════════════════════════════ */
     .auth-heading {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 28px; font-weight: 800;
@@ -187,142 +186,137 @@
     .btn-unlock:active { transform: scale(0.98); }
     .btn-unlock:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
-    /* ═══════════════════════════════════════════
-       CENA DE PERSONAGENS
-    ═══════════════════════════════════════════ */
-
-    /* Brilho de fundo */
-    .auth-right::before {
-      content: '';
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(ellipse, rgba(80,50,180,0.07) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .auth-right::after {
-      content: '';
-      position: absolute; bottom: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 400px; height: 200px;
-      background: radial-gradient(ellipse at bottom, rgba(255,109,41,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* Label do painel */
+    /* ═══ CENA DAS CORUJAS ════════════════════════════ */
     .panel-tag {
-      position: absolute; top: 36px;
+      position: absolute; top: 32px;
       color: var(--text-3); font-size: 11px; font-weight: 600;
       letter-spacing: 2.5px; text-transform: uppercase;
     }
 
-    /* Cena principal */
-    .scene {
-      position: relative;
-      display: flex; align-items: flex-end; justify-content: center;
-      gap: 24px;
-      padding-bottom: 20px;
-    }
-
-    /* Partículas flutuantes */
+    /* Partículas */
     .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255,109,41,0.55);
+      position: absolute; border-radius: 50%;
+      background: rgba(255,109,41,0.5);
       animation: particle-rise linear infinite;
       pointer-events: none;
     }
     @keyframes particle-rise {
-      0%   { transform: translateY(0) scale(1);   opacity: 0.55; }
-      60%  { transform: translateY(-80px) scale(0.5); opacity: 0.2; }
-      100% { transform: translateY(-150px) scale(0); opacity: 0; }
+      0%   { transform: translateY(0) scale(1);   opacity: 0.5; }
+      70%  { opacity: 0.15; }
+      100% { transform: translateY(-160px) scale(0); opacity: 0; }
     }
 
-    /* ── Personagem ── */
+    /* Palco das corujas */
+    .owls-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .scene {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    /* ── Coruja wrapper ── */
     .owl-wrap {
       position: relative;
-      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
       cursor: default;
       user-select: none;
     }
 
-    /* Piscada */
+    /* Idle float: aplicado no SVG para não conflitar com jump/shake no wrap */
+    .owl-svg {
+      display: block;
+    }
+    #owl-a .owl-svg { animation: idle-float 3.3s ease-in-out infinite 0.0s; }
+    #owl-b .owl-svg { animation: idle-float 2.9s ease-in-out infinite 0.5s; }
+    #owl-c .owl-svg { animation: idle-float 3.6s ease-in-out infinite 1.0s; }
+    #owl-d .owl-svg { animation: idle-float 3.1s ease-in-out infinite 0.3s; }
+
+    @keyframes idle-float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-7px); }
+    }
+
+    /* Pausa o float durante ações */
+    .owl-wrap.jumping .owl-svg,
+    .owl-wrap.shaking .owl-svg { animation-play-state: paused; }
+
+    /* ── Piscada ── */
     .eye-white {
       transform-box: fill-box;
       transform-origin: center;
       transition: transform 0.07s ease-in-out;
     }
-    .owl-wrap.blinking .eye-white { transform: scaleY(0.06); }
+    .owl-wrap.blinking .eye-white { transform: scaleY(0.05); }
 
-    /* Olhando para o input (esquerda) */
-    .pupil {
-      transition: transform 0.22s cubic-bezier(0.25,0.46,0.45,0.94);
+    /* ── Pupilas: tracking via JS, transition suave ── */
+    .pupil-group {
+      transition: transform 0.06s linear;
     }
-    .owl-wrap.look-left .pupil { transform: translate(-5px, 2px); }
 
-    /* Animação de bater asas */
-    .wing-l { transform-box: fill-box; transform-origin: 95% 50%; transition: transform 0.3s ease; }
-    .wing-r { transform-box: fill-box; transform-origin: 5% 50%;  transition: transform 0.3s ease; }
+    /* ── Wings ── */
+    .wing-l { transform-box: fill-box; transform-origin: 92% 50%; transition: transform 0.3s ease; }
+    .wing-r { transform-box: fill-box; transform-origin: 8%  50%; transition: transform 0.3s ease; }
+    .owl-wrap.happy .wing-l { transform: rotate(-32deg); }
+    .owl-wrap.happy .wing-r { transform: rotate(32deg);  }
 
-    /* Estado feliz */
-    .owl-wrap.happy .wing-l { transform: rotate(-30deg); }
-    .owl-wrap.happy .wing-r { transform: rotate(30deg);  }
-    .owl-wrap.happy .eye-white { transform: scaleY(0.12); }
-    .owl-wrap.happy .beak-n { opacity: 0; }
-    .owl-wrap.happy .beak-s { opacity: 1; }
-    .owl-wrap.happy .pupil   { transform: translateY(3px); }
-
+    /* ── Happy state ── */
+    .owl-wrap.happy .eye-white { transform: scaleY(0.1); }
+    .owl-wrap.happy .beak-n    { opacity: 0; }
+    .owl-wrap.happy .beak-s    { opacity: 1; }
     .beak-n { transition: opacity 0.15s; }
     .beak-s { opacity: 0; transition: opacity 0.15s; }
 
-    /* Pulo no sucesso */
+    /* ── Jump ── */
     @keyframes owl-jump {
-      0%   { transform: translateY(0) rotate(0deg); }
-      30%  { transform: translateY(-28px) rotate(-4deg); }
-      55%  { transform: translateY(-14px) rotate(3deg); }
-      75%  { transform: translateY(-6px) rotate(-2deg); }
-      100% { transform: translateY(0) rotate(0deg); }
+      0%   { transform: translateY(0)   rotate(0deg);  }
+      30%  { transform: translateY(-32px) rotate(-5deg); }
+      55%  { transform: translateY(-16px) rotate(4deg);  }
+      75%  { transform: translateY(-6px)  rotate(-2deg); }
+      100% { transform: translateY(0)   rotate(0deg);  }
     }
-    .owl-wrap.jumping { animation: owl-jump 0.65s cubic-bezier(0.36,0.07,0.19,0.97) forwards; }
+    .owl-wrap.jumping { animation: owl-jump 0.7s cubic-bezier(0.36,0.07,0.19,0.97) forwards; }
 
-    /* Tremer no erro */
+    /* ── Shake ── */
     @keyframes owl-shake {
-      0%, 100% { transform: rotate(0deg); }
-      20%  { transform: rotate(-7deg); }
-      40%  { transform: rotate(7deg);  }
-      60%  { transform: rotate(-5deg); }
-      80%  { transform: rotate(5deg);  }
+      0%, 100% { transform: rotate(0deg);  }
+      20%       { transform: rotate(-8deg); }
+      40%       { transform: rotate(8deg);  }
+      60%       { transform: rotate(-5deg); }
+      80%       { transform: rotate(5deg);  }
     }
     .owl-wrap.shaking { animation: owl-shake 0.45s ease forwards; }
 
-    /* Estrelas no sucesso */
+    /* ── Estrelas de sucesso ── */
     .star {
       position: absolute;
-      color: #FF6D29; font-size: 20px;
-      opacity: 0; pointer-events: none;
+      color: #FF6D29; pointer-events: none; opacity: 0;
+      font-size: 18px; font-weight: bold;
     }
     @keyframes star-burst {
       0%   { opacity: 0; transform: scale(0) rotate(0deg); }
-      40%  { opacity: 1; transform: scale(1.3) rotate(15deg); }
-      100% { opacity: 0; transform: scale(0.8) rotate(40deg) translateY(-30px); }
+      40%  { opacity: 1; transform: scale(1.4) rotate(20deg); }
+      100% { opacity: 0; transform: scale(0.7) rotate(50deg) translateY(-35px); }
     }
 
-    /* Film strip base */
-    .film-base { display: block; }
+    /* ═══ TRILHO (PERCH) ═══════════════════════════════ */
+    .film-perch { display: block; margin-top: -1px; }
 
-    /* ═══════════════════════════════════════════
-       TELA DE DOWNLOAD
-    ═══════════════════════════════════════════ */
+    /* ═══ TELA DE DOWNLOAD ════════════════════════════ */
     .dl-card {
       background: #161616; border: 1px solid var(--border);
       border-radius: 20px; padding: 44px 48px;
-      width: 100%; max-width: 510px; position: relative; overflow: hidden;
+      width: 100%; max-width: 510px;
+      position: relative; overflow: hidden;
     }
     .dl-card::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255,109,41,0.35), transparent);
     }
-
     .congrats-glyph {
       width: 58px; height: 58px; border-radius: 15px;
       background: linear-gradient(135deg, rgba(255,144,99,0.12), rgba(255,109,41,0.12));
@@ -330,8 +324,8 @@
       display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
     }
     .download-heading {
-      font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 800;
-      letter-spacing: -0.4px; margin-bottom: 6px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 6px;
     }
     .download-sub { color: var(--text-2); font-size: 14px; margin-bottom: 28px; }
 
@@ -343,21 +337,18 @@
       transition: border-color 0.2s, background 0.2s;
     }
     .platform-card:hover { border-color: rgba(255,109,41,0.22); background: rgba(255,109,41,0.03); }
-
     .platform-icon-wrap {
       width: 46px; height: 46px; border-radius: 11px;
       background: var(--bg-hover);
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .platform-icon-wrap svg { width: 22px; height: 22px; fill: var(--text-2); }
-
     .platform-info { flex: 1; min-width: 0; }
     .platform-name {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 14px; font-weight: 700; color: var(--text-1); margin-bottom: 3px;
     }
     .platform-compat { font-size: 11px; color: var(--text-3); }
-
     .btn-dl {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 9px 16px; border-radius: 10px;
@@ -371,8 +362,6 @@
       background: rgba(255,109,41,0.08); border-color: rgba(255,109,41,0.55);
       box-shadow: 0 0 14px rgba(255,109,41,0.12);
     }
-    .btn-dl:active { transform: scale(0.97); }
-
     .divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(72,72,71,0.3), transparent);
@@ -390,11 +379,9 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Scrollbar */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-thumb { background: #2a2929; border-radius: 2px; }
 
-    /* Mobile */
     @media (max-width: 760px) {
       #screen-auth { flex-direction: column; }
       .auth-left { width: 100%; min-height: 100vh; padding: 36px 24px; }
@@ -405,15 +392,14 @@
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════
+<!-- ═══════════════════════════════════════════
      TELA 1 — ATIVAÇÃO
-════════════════════════════════════════════ -->
+═══════════════════════════════════════════ -->
 <div id="screen-auth">
 
-  <!-- ── ESQUERDA: formulário ── -->
+  <!-- ESQUERDA: formulário -->
   <div class="auth-left">
     <div class="form-inner">
-
       <div class="logo">
         <div class="logo-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -450,173 +436,290 @@
         </svg>
         Liberar Acesso
       </button>
-
     </div>
   </div>
 
-  <!-- ── DIREITA: personagens animados ── -->
+  <!-- DIREITA: corujas animadas -->
   <div class="auth-right">
     <span class="panel-tag">Caption Flow Pro</span>
 
     <!-- Partículas -->
-    <div class="particle" style="width:5px;height:5px;left:18%;top:70%;animation-duration:5s;animation-delay:0s"></div>
-    <div class="particle" style="width:3px;height:3px;left:62%;top:65%;animation-duration:4.2s;animation-delay:1.4s"></div>
-    <div class="particle" style="width:4px;height:4px;left:38%;top:72%;animation-duration:6s;animation-delay:2.8s"></div>
-    <div class="particle" style="width:3px;height:3px;left:78%;top:68%;animation-duration:4.8s;animation-delay:0.7s"></div>
-    <div class="particle" style="width:5px;height:5px;left:50%;top:75%;animation-duration:5.5s;animation-delay:2s"></div>
+    <div class="particle" style="width:4px;height:4px;left:14%;top:72%;animation-duration:5.2s;animation-delay:0s"></div>
+    <div class="particle" style="width:3px;height:3px;left:55%;top:68%;animation-duration:4.5s;animation-delay:1.3s"></div>
+    <div class="particle" style="width:5px;height:5px;left:35%;top:74%;animation-duration:6.1s;animation-delay:2.7s"></div>
+    <div class="particle" style="width:3px;height:3px;left:72%;top:70%;animation-duration:4.8s;animation-delay:0.6s"></div>
+    <div class="particle" style="width:4px;height:4px;left:82%;top:66%;animation-duration:5.5s;animation-delay:1.9s"></div>
+    <div class="particle" style="width:3px;height:3px;left:25%;top:65%;animation-duration:4.1s;animation-delay:3.2s"></div>
 
-    <div class="scene">
+    <div class="owls-stage">
+      <div class="scene">
 
-      <!-- ── Coruja principal ── -->
-      <div class="owl-wrap" id="owl-main">
-        <span class="star" id="star1" style="top:10px;left:-18px;">✦</span>
-        <span class="star" id="star2" style="top:0px;left:55px;">✦</span>
-        <span class="star" id="star3" style="top:15px;right:-15px;">✦</span>
+        <!-- ── CORUJA A (pequena) ── -->
+        <div class="owl-wrap" id="owl-a">
+          <span class="star" style="top:5px;left:-14px;">✦</span>
+          <svg class="owl-svg" width="82" height="126" viewBox="0 0 82 126" xmlns="http://www.w3.org/2000/svg">
+            <!-- Asas -->
+            <ellipse class="wing-l" cx="16" cy="92" rx="15" ry="28" fill="#131313"/>
+            <ellipse class="wing-r" cx="66" cy="92" rx="15" ry="28" fill="#131313"/>
+            <!-- Corpo -->
+            <ellipse cx="41" cy="96" rx="22" ry="27" fill="#1a1a1a"/>
+            <!-- Barriga -->
+            <ellipse cx="41" cy="102" rx="13" ry="18" fill="#222"/>
+            <!-- Cabeça -->
+            <circle cx="41" cy="46" r="33" fill="#1a1a1a"/>
+            <!-- Tufos -->
+            <polygon points="25,20 18,4 34,18" fill="#FF6D29"/>
+            <polygon points="57,20 64,4 48,18" fill="#FF6D29"/>
+            <!-- Sockets -->
+            <circle cx="29" cy="46" r="14" fill="#FF6D29" opacity="0.12"/>
+            <circle cx="53" cy="46" r="14" fill="#FF6D29" opacity="0.12"/>
+            <circle cx="29" cy="46" r="12" fill="#0d0d0d"/>
+            <circle cx="53" cy="46" r="12" fill="#0d0d0d"/>
+            <!-- Olhos (piscada) -->
+            <circle class="eye-white" cx="29" cy="46" r="9.5" fill="white"/>
+            <circle class="eye-white" cx="53" cy="46" r="9.5" fill="white"/>
+            <!-- Pupilas com tracking -->
+            <g class="pupil-group" data-cx="29" data-cy="46" data-max="3.5">
+              <circle cx="29" cy="46" r="6" fill="#080808"/>
+              <circle cx="31.5" cy="43.5" r="1.8" fill="white"/>
+            </g>
+            <g class="pupil-group" data-cx="53" data-cy="46" data-max="3.5">
+              <circle cx="53" cy="46" r="6" fill="#080808"/>
+              <circle cx="55.5" cy="43.5" r="1.8" fill="white"/>
+            </g>
+            <!-- Bico -->
+            <path class="beak-n" d="M37 54 L41 61 L45 54 Z" fill="#FF6D29"/>
+            <path class="beak-s" d="M35 56 Q41 65 47 56" fill="none" stroke="#FF6D29" stroke-width="3" stroke-linecap="round"/>
+            <!-- Pernas + garras (apoiadas no trilho) -->
+            <g stroke="#FF6D29" stroke-width="2.8" stroke-linecap="round">
+              <!-- Perna esquerda -->
+              <line x1="31" y1="120" x2="31" y2="124"/>
+              <!-- Garras esquerda -->
+              <line x1="31" y1="124" x2="22" y2="128"/>
+              <line x1="31" y1="124" x2="31" y2="129"/>
+              <line x1="31" y1="124" x2="40" y2="128"/>
+              <line x1="31" y1="124" x2="35" y2="121"/>
+              <!-- Perna direita -->
+              <line x1="51" y1="120" x2="51" y2="124"/>
+              <!-- Garras direita -->
+              <line x1="51" y1="124" x2="42" y2="128"/>
+              <line x1="51" y1="124" x2="51" y2="129"/>
+              <line x1="51" y1="124" x2="60" y2="128"/>
+              <line x1="51" y1="124" x2="55" y2="121"/>
+            </g>
+          </svg>
+        </div>
 
-        <svg width="170" height="210" viewBox="0 0 170 210" xmlns="http://www.w3.org/2000/svg">
-          <!-- Asas -->
-          <ellipse class="wing-l" cx="36" cy="148" rx="26" ry="42" fill="#141414"/>
-          <ellipse class="wing-r" cx="134" cy="148" rx="26" ry="42" fill="#141414"/>
+        <!-- ── CORUJA B (média) ── -->
+        <div class="owl-wrap" id="owl-b">
+          <span class="star" style="top:2px;left:-16px;">✦</span>
+          <span class="star" style="top:-4px;right:-12px;">✦</span>
+          <svg class="owl-svg" width="114" height="168" viewBox="0 0 114 168" xmlns="http://www.w3.org/2000/svg">
+            <!-- Asas -->
+            <ellipse class="wing-l" cx="21" cy="125" rx="20" ry="35" fill="#141414"/>
+            <ellipse class="wing-r" cx="93" cy="125" rx="20" ry="35" fill="#141414"/>
+            <!-- Corpo -->
+            <ellipse cx="57" cy="130" rx="30" ry="36" fill="#1a1a1a"/>
+            <!-- Barriga -->
+            <ellipse cx="57" cy="137" rx="18" ry="24" fill="#222"/>
+            <!-- Cabeça -->
+            <circle cx="57" cy="63" r="44" fill="#1a1a1a"/>
+            <!-- Tufos -->
+            <polygon points="37,30 27,8 47,26" fill="#FF6D29"/>
+            <polygon points="77,30 87,8 67,26" fill="#FF6D29"/>
+            <!-- Sockets -->
+            <circle cx="42" cy="63" r="18" fill="#FF6D29" opacity="0.12"/>
+            <circle cx="72" cy="63" r="18" fill="#FF6D29" opacity="0.12"/>
+            <circle cx="42" cy="63" r="16" fill="#0d0d0d"/>
+            <circle cx="72" cy="63" r="16" fill="#0d0d0d"/>
+            <!-- Olhos -->
+            <circle class="eye-white" cx="42" cy="63" r="13" fill="white"/>
+            <circle class="eye-white" cx="72" cy="63" r="13" fill="white"/>
+            <!-- Pupilas -->
+            <g class="pupil-group" data-cx="42" data-cy="63" data-max="4.5">
+              <circle cx="42" cy="63" r="8.5" fill="#080808"/>
+              <circle cx="45" cy="60" r="2.5" fill="white"/>
+            </g>
+            <g class="pupil-group" data-cx="72" data-cy="63" data-max="4.5">
+              <circle cx="72" cy="63" r="8.5" fill="#080808"/>
+              <circle cx="75" cy="60" r="2.5" fill="white"/>
+            </g>
+            <!-- Bico -->
+            <path class="beak-n" d="M51 74 L57 84 L63 74 Z" fill="#FF6D29"/>
+            <path class="beak-s" d="M48 77 Q57 90 66 77" fill="none" stroke="#FF6D29" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- Pernas + garras -->
+            <g stroke="#FF6D29" stroke-width="3.2" stroke-linecap="round">
+              <line x1="43" y1="160" x2="43" y2="165"/>
+              <line x1="43" y1="165" x2="32" y2="170"/>
+              <line x1="43" y1="165" x2="43" y2="171"/>
+              <line x1="43" y1="165" x2="54" y2="170"/>
+              <line x1="43" y1="165" x2="48" y2="161"/>
+              <line x1="71" y1="160" x2="71" y2="165"/>
+              <line x1="71" y1="165" x2="60" y2="170"/>
+              <line x1="71" y1="165" x2="71" y2="171"/>
+              <line x1="71" y1="165" x2="82" y2="170"/>
+              <line x1="71" y1="165" x2="76" y2="161"/>
+            </g>
+          </svg>
+        </div>
 
-          <!-- Corpo -->
-          <ellipse cx="85" cy="155" rx="44" ry="50" fill="#1b1b1b"/>
+        <!-- ── CORUJA C (grande, principal) ── -->
+        <div class="owl-wrap" id="owl-c">
+          <span class="star" style="top:0px;left:-20px;">✦</span>
+          <span class="star" style="top:-8px;left:60px;">✦</span>
+          <span class="star" style="top:4px;right:-18px;">✦</span>
+          <svg class="owl-svg" width="156" height="212" viewBox="0 0 156 212" xmlns="http://www.w3.org/2000/svg">
+            <!-- Asas -->
+            <ellipse class="wing-l" cx="26" cy="160" rx="28" ry="48" fill="#131313"/>
+            <ellipse class="wing-r" cx="130" cy="160" rx="28" ry="48" fill="#131313"/>
+            <!-- Corpo -->
+            <ellipse cx="78" cy="164" rx="44" ry="52" fill="#1a1a1a"/>
+            <!-- Barriga -->
+            <ellipse cx="78" cy="172" rx="26" ry="34" fill="#222"/>
+            <!-- Cabeça -->
+            <circle cx="78" cy="82" r="56" fill="#1a1a1a"/>
+            <!-- Tufos -->
+            <polygon points="52,42 40,10 66,38" fill="#FF6D29"/>
+            <polygon points="104,42 116,10 90,38" fill="#FF6D29"/>
+            <!-- Sockets -->
+            <circle cx="58" cy="82" r="24" fill="#FF6D29" opacity="0.13"/>
+            <circle cx="98" cy="82" r="24" fill="#FF6D29" opacity="0.13"/>
+            <circle cx="58" cy="82" r="21" fill="#0d0d0d"/>
+            <circle cx="98" cy="82" r="21" fill="#0d0d0d"/>
+            <!-- Olhos -->
+            <circle class="eye-white" cx="58" cy="82" r="17" fill="white"/>
+            <circle class="eye-white" cx="98" cy="82" r="17" fill="white"/>
+            <!-- Pupilas -->
+            <g class="pupil-group" data-cx="58" data-cy="82" data-max="6">
+              <circle cx="58" cy="82" r="11" fill="#080808"/>
+              <circle cx="62" cy="78" r="3.2" fill="white"/>
+            </g>
+            <g class="pupil-group" data-cx="98" data-cy="82" data-max="6">
+              <circle cx="98" cy="82" r="11" fill="#080808"/>
+              <circle cx="102" cy="78" r="3.2" fill="white"/>
+            </g>
+            <!-- Bico -->
+            <path class="beak-n" d="M71 96 L78 110 L85 96 Z" fill="#FF6D29"/>
+            <path class="beak-s" d="M67 100 Q78 117 89 100" fill="none" stroke="#FF6D29" stroke-width="4.5" stroke-linecap="round"/>
+            <!-- Pernas + garras -->
+            <g stroke="#FF6D29" stroke-width="3.8" stroke-linecap="round">
+              <line x1="60" y1="204" x2="60" y2="209"/>
+              <line x1="60" y1="209" x2="47" y2="215"/>
+              <line x1="60" y1="209" x2="60" y2="216"/>
+              <line x1="60" y1="209" x2="73" y2="215"/>
+              <line x1="60" y1="209" x2="66" y2="205"/>
+              <line x1="96" y1="204" x2="96" y2="209"/>
+              <line x1="96" y1="209" x2="83" y2="215"/>
+              <line x1="96" y1="209" x2="96" y2="216"/>
+              <line x1="96" y1="209" x2="109" y2="215"/>
+              <line x1="96" y1="209" x2="102" y2="205"/>
+            </g>
+          </svg>
+        </div>
 
-          <!-- Barriga -->
-          <ellipse cx="85" cy="162" rx="27" ry="34" fill="#252525"/>
+        <!-- ── CORUJA D (média-pequena) ── -->
+        <div class="owl-wrap" id="owl-d">
+          <span class="star" style="top:3px;right:-14px;">✦</span>
+          <svg class="owl-svg" width="96" height="140" viewBox="0 0 96 140" xmlns="http://www.w3.org/2000/svg">
+            <!-- Asas -->
+            <ellipse class="wing-l" cx="18" cy="106" rx="17" ry="30" fill="#131313"/>
+            <ellipse class="wing-r" cx="78" cy="106" rx="17" ry="30" fill="#131313"/>
+            <!-- Corpo -->
+            <ellipse cx="48" cy="110" rx="26" ry="30" fill="#1a1a1a"/>
+            <!-- Barriga -->
+            <ellipse cx="48" cy="116" rx="15" ry="20" fill="#222"/>
+            <!-- Cabeça -->
+            <circle cx="48" cy="52" r="36" fill="#1a1a1a"/>
+            <!-- Tufos -->
+            <polygon points="30,24 22,5 38,21" fill="#FF6D29"/>
+            <polygon points="66,24 74,5 58,21" fill="#FF6D29"/>
+            <!-- Sockets -->
+            <circle cx="35" cy="52" r="15" fill="#FF6D29" opacity="0.12"/>
+            <circle cx="61" cy="52" r="15" fill="#FF6D29" opacity="0.12"/>
+            <circle cx="35" cy="52" r="13" fill="#0d0d0d"/>
+            <circle cx="61" cy="52" r="13" fill="#0d0d0d"/>
+            <!-- Olhos -->
+            <circle class="eye-white" cx="35" cy="52" r="10.5" fill="white"/>
+            <circle class="eye-white" cx="61" cy="52" r="10.5" fill="white"/>
+            <!-- Pupilas -->
+            <g class="pupil-group" data-cx="35" data-cy="52" data-max="4">
+              <circle cx="35" cy="52" r="7" fill="#080808"/>
+              <circle cx="37.5" cy="49.5" r="2" fill="white"/>
+            </g>
+            <g class="pupil-group" data-cx="61" data-cy="52" data-max="4">
+              <circle cx="61" cy="52" r="7" fill="#080808"/>
+              <circle cx="63.5" cy="49.5" r="2" fill="white"/>
+            </g>
+            <!-- Bico -->
+            <path class="beak-n" d="M43 62 L48 70 L53 62 Z" fill="#FF6D29"/>
+            <path class="beak-s" d="M41 64 Q48 74 55 64" fill="none" stroke="#FF6D29" stroke-width="3.2" stroke-linecap="round"/>
+            <!-- Pernas + garras -->
+            <g stroke="#FF6D29" stroke-width="3" stroke-linecap="round">
+              <line x1="36" y1="133" x2="36" y2="137"/>
+              <line x1="36" y1="137" x2="27" y2="142"/>
+              <line x1="36" y1="137" x2="36" y2="143"/>
+              <line x1="36" y1="137" x2="45" y2="142"/>
+              <line x1="36" y1="137" x2="40" y2="134"/>
+              <line x1="60" y1="133" x2="60" y2="137"/>
+              <line x1="60" y1="137" x2="51" y2="142"/>
+              <line x1="60" y1="137" x2="60" y2="143"/>
+              <line x1="60" y1="137" x2="69" y2="142"/>
+              <line x1="60" y1="137" x2="64" y2="134"/>
+            </g>
+          </svg>
+        </div>
 
-          <!-- Cabeça -->
-          <circle cx="85" cy="86" r="56" fill="#1b1b1b"/>
+      </div><!-- /scene -->
 
-          <!-- Tufos (orelhas) -->
-          <polygon points="57,44  43,12  70,40" fill="#FF6D29"/>
-          <polygon points="113,44 127,12 100,40" fill="#FF6D29"/>
+      <!-- TRILHO: perch onde as corujas estão -->
+      <svg class="film-perch" width="500" height="48" viewBox="0 0 500 48">
+        <!-- Sombra de profundidade abaixo do trilho -->
+        <ellipse cx="250" cy="48" rx="240" ry="8" fill="black" opacity="0.35"/>
+        <!-- Corpo principal do trilho -->
+        <rect x="0" y="4" width="500" height="40" rx="6" fill="#181818"/>
+        <!-- Borda superior laranja (onde as garras pousam) -->
+        <rect x="0" y="4" width="500" height="6" rx="3" fill="#FF6D29" opacity="0.38"/>
+        <!-- Borda inferior -->
+        <rect x="0" y="38" width="500" height="6" rx="3" fill="#FF6D29" opacity="0.18"/>
+        <!-- Faixas decorativas internas -->
+        <rect x="0" y="18" width="500" height="2" fill="rgba(255,109,41,0.08)"/>
+        <rect x="0" y="28" width="500" height="2" fill="rgba(255,109,41,0.08)"/>
+        <!-- Perfurações do filme (sprocket holes) -->
+        <g fill="#0a0a0a" rx="2">
+          <rect x="8"   y="21" width="14" height="14" rx="2.5"/>
+          <rect x="32"  y="21" width="14" height="14" rx="2.5"/>
+          <rect x="56"  y="21" width="14" height="14" rx="2.5"/>
+          <rect x="80"  y="21" width="14" height="14" rx="2.5"/>
+          <rect x="104" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="128" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="152" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="176" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="200" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="224" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="248" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="272" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="296" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="320" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="344" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="368" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="392" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="416" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="440" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="464" y="21" width="14" height="14" rx="2.5"/>
+          <rect x="478" y="21" width="14" height="14" rx="2.5"/>
+        </g>
+      </svg>
 
-          <!-- Socket dos olhos -->
-          <circle cx="62" cy="86" r="24" fill="#FF6D29" opacity="0.13"/>
-          <circle cx="108" cy="86" r="24" fill="#FF6D29" opacity="0.13"/>
-          <circle cx="62" cy="86" r="21" fill="#0d0d0d"/>
-          <circle cx="108" cy="86" r="21" fill="#0d0d0d"/>
+    </div><!-- /owls-stage -->
+  </div><!-- /auth-right -->
 
-          <!-- Branco dos olhos (anima para piscar) -->
-          <circle class="eye-white" cx="62" cy="86" r="17" fill="white"/>
-          <circle class="eye-white" cx="108" cy="86" r="17" fill="white"/>
+</div><!-- /screen-auth -->
 
-          <!-- Pupilas -->
-          <circle class="pupil" cx="65" cy="89" r="11" fill="#080808"/>
-          <circle class="pupil" cx="111" cy="89" r="11" fill="#080808"/>
-
-          <!-- Brilho das pupilas -->
-          <circle cx="69" cy="85" r="3.5" fill="white"/>
-          <circle cx="115" cy="85" r="3.5" fill="white"/>
-
-          <!-- Bico (normal) -->
-          <path class="beak-n" d="M78 100 L85 113 L92 100 Z" fill="#FF6D29"/>
-          <!-- Bico (sorriso) -->
-          <path class="beak-s" d="M74 102 Q85 118 96 102" fill="none" stroke="#FF6D29" stroke-width="4.5" stroke-linecap="round"/>
-
-          <!-- Pés -->
-          <g stroke="#FF6D29" stroke-width="4" stroke-linecap="round">
-            <line x1="68" y1="200" x2="55" y2="208"/>
-            <line x1="68" y1="200" x2="68" y2="210"/>
-            <line x1="68" y1="200" x2="81" y2="208"/>
-            <line x1="102" y1="200" x2="89" y2="208"/>
-            <line x1="102" y1="200" x2="102" y2="210"/>
-            <line x1="102" y1="200" x2="115" y2="208"/>
-          </g>
-        </svg>
-      </div>
-
-      <!-- ── Coruja pequena ── -->
-      <div class="owl-wrap" id="owl-small" style="margin-bottom:36px;">
-        <svg width="110" height="138" viewBox="0 0 110 138" xmlns="http://www.w3.org/2000/svg">
-          <!-- Asas -->
-          <ellipse class="wing-l" cx="22" cy="97" rx="18" ry="28" fill="#131313"/>
-          <ellipse class="wing-r" cx="88" cy="97" rx="18" ry="28" fill="#131313"/>
-
-          <!-- Corpo -->
-          <ellipse cx="55" cy="100" rx="30" ry="34" fill="#181818"/>
-
-          <!-- Barriga -->
-          <ellipse cx="55" cy="106" rx="18" ry="22" fill="#222222"/>
-
-          <!-- Cabeça -->
-          <circle cx="55" cy="55" r="37" fill="#181818"/>
-
-          <!-- Tufos -->
-          <polygon points="37,28 28,8  44,25" fill="#FF6D29"/>
-          <polygon points="73,28 82,8  66,25" fill="#FF6D29"/>
-
-          <!-- Sockets -->
-          <circle cx="40" cy="55" r="16" fill="#FF6D29" opacity="0.12"/>
-          <circle cx="70" cy="55" r="16" fill="#FF6D29" opacity="0.12"/>
-          <circle cx="40" cy="55" r="14" fill="#0d0d0d"/>
-          <circle cx="70" cy="55" r="14" fill="#0d0d0d"/>
-
-          <!-- Olhos -->
-          <circle class="eye-white" cx="40" cy="55" r="11" fill="white"/>
-          <circle class="eye-white" cx="70" cy="55" r="11" fill="white"/>
-
-          <!-- Pupilas -->
-          <circle class="pupil" cx="42" cy="57" r="7" fill="#080808"/>
-          <circle class="pupil" cx="72" cy="57" r="7" fill="#080808"/>
-
-          <!-- Brilhos -->
-          <circle cx="45" cy="54" r="2.3" fill="white"/>
-          <circle cx="75" cy="54" r="2.3" fill="white"/>
-
-          <!-- Bico -->
-          <path class="beak-n" d="M50 64 L55 72 L60 64 Z" fill="#FF6D29"/>
-          <path class="beak-s" d="M48 66 Q55 76 62 66" fill="none" stroke="#FF6D29" stroke-width="3.5" stroke-linecap="round"/>
-
-          <!-- Pés -->
-          <g stroke="#FF6D29" stroke-width="3" stroke-linecap="round">
-            <line x1="42" y1="130" x2="34" y2="136"/>
-            <line x1="42" y1="130" x2="42" y2="138"/>
-            <line x1="42" y1="130" x2="50" y2="136"/>
-            <line x1="68" y1="130" x2="60" y2="136"/>
-            <line x1="68" y1="130" x2="68" y2="138"/>
-            <line x1="68" y1="130" x2="76" y2="136"/>
-          </g>
-        </svg>
-      </div>
-
-    </div>
-
-    <!-- Film strip base -->
-    <svg class="film-base" width="420" height="26" viewBox="0 0 420 26" style="margin-top:-2px;">
-      <rect x="0" y="6" width="420" height="20" rx="3" fill="#181818"/>
-      <rect x="0" y="6"  width="420" height="4" rx="2" fill="#FF6D29" opacity="0.35"/>
-      <rect x="0" y="22" width="420" height="4" rx="2" fill="#FF6D29" opacity="0.35"/>
-      <g fill="#090909">
-        <rect x="6"   y="9" width="14" height="14" rx="2"/>
-        <rect x="30"  y="9" width="14" height="14" rx="2"/>
-        <rect x="54"  y="9" width="14" height="14" rx="2"/>
-        <rect x="78"  y="9" width="14" height="14" rx="2"/>
-        <rect x="102" y="9" width="14" height="14" rx="2"/>
-        <rect x="126" y="9" width="14" height="14" rx="2"/>
-        <rect x="150" y="9" width="14" height="14" rx="2"/>
-        <rect x="174" y="9" width="14" height="14" rx="2"/>
-        <rect x="198" y="9" width="14" height="14" rx="2"/>
-        <rect x="222" y="9" width="14" height="14" rx="2"/>
-        <rect x="246" y="9" width="14" height="14" rx="2"/>
-        <rect x="270" y="9" width="14" height="14" rx="2"/>
-        <rect x="294" y="9" width="14" height="14" rx="2"/>
-        <rect x="318" y="9" width="14" height="14" rx="2"/>
-        <rect x="342" y="9" width="14" height="14" rx="2"/>
-        <rect x="366" y="9" width="14" height="14" rx="2"/>
-        <rect x="390" y="9" width="14" height="14" rx="2"/>
-      </g>
-    </svg>
-
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════
+<!-- ═══════════════════════════════════════════
      TELA 2 — DOWNLOADS
-════════════════════════════════════════════ -->
+═══════════════════════════════════════════ -->
 <div id="screen-download" class="hidden">
   <div class="dl-card">
-
     <div class="logo" style="margin-bottom:24px;">
       <div class="logo-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -639,7 +742,6 @@
     <p class="download-sub">Faça o download agora de acordo com o seu dispositivo.</p>
 
     <div class="platform-cards">
-      <!-- Mac -->
       <div class="platform-card">
         <div class="platform-icon-wrap">
           <svg viewBox="0 0 814 1000"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 376.7 0 248.7 0 126.8 0 56.7 20.2 16 60.6 16c31.5 0 92.2 33.3 167 33.3 73 0 133.4-33.3 175.7-33.3 51.1 0 72.5 15.5 101.5 38.2-19 27.3-53.5 97.7-53.5 193.7 0 81.5 40.3 153.4 80.4 195.4-11.3 11.3-26.4 19.3-43.2 19.3z"/></svg>
@@ -656,7 +758,6 @@
         </a>
       </div>
 
-      <!-- Windows -->
       <div class="platform-card">
         <div class="platform-icon-wrap">
           <svg viewBox="0 0 88 88"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.201zm35.67 33.529l.028 34.453L.028 75.48.026 45.7zm4.326-39.025L87.314 0v41.527l-47.318.376zm47.329 39.349-.011 41.34-47.318-6.678-.066-34.739z"/></svg>
@@ -684,55 +785,71 @@
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz9bwJh4BmYzkl7YvL0I9yMIzIgDkbOziSriq46QSACFe2mFLkrgPxxV5kUwkPYuz1a/exec';
   let urls = { mac: null, windows: null };
 
-  const owlMain  = document.getElementById('owl-main');
-  const owlSmall = document.getElementById('owl-small');
-  const owls     = [owlMain, owlSmall];
+  const owls = Array.from(document.querySelectorAll('.owl-wrap'));
 
-  /* ══════════════════════════════════
-     PISCADA — aleatória a cada 2-5s
-  ══════════════════════════════════ */
+  /* ══════════════════════════════════════════
+     RASTREAMENTO DE MOUSE — todas as corujas
+  ══════════════════════════════════════════ */
+  document.addEventListener('mousemove', trackEyes);
+
+  function trackEyes(e) {
+    document.querySelectorAll('.owl-svg').forEach(svg => {
+      const rect = svg.getBoundingClientRect();
+      if (!rect.width) return;
+
+      const vb = svg.viewBox.baseVal;
+      const sx = rect.width  / vb.width;
+      const sy = rect.height / vb.height;
+
+      /* Posição do mouse no sistema de coordenadas do SVG */
+      const mx = (e.clientX - rect.left) / sx;
+      const my = (e.clientY - rect.top)  / sy;
+
+      const wrap = svg.closest('.owl-wrap');
+      const isHappy = wrap && wrap.classList.contains('happy');
+
+      svg.querySelectorAll('.pupil-group').forEach(pg => {
+        if (isHappy) return; /* pupilas congeladas no estado feliz */
+
+        const cx  = parseFloat(pg.dataset.cx);
+        const cy  = parseFloat(pg.dataset.cy);
+        const max = parseFloat(pg.dataset.max || '5');
+
+        const dx    = mx - cx;
+        const dy    = my - cy;
+        const dist  = Math.min(Math.hypot(dx, dy) * 0.07, max);
+        const angle = Math.atan2(dy, dx);
+
+        const ox = (Math.cos(angle) * dist).toFixed(2);
+        const oy = (Math.sin(angle) * dist).toFixed(2);
+
+        pg.setAttribute('transform', `translate(${ox},${oy})`);
+      });
+    });
+  }
+
+  /* ══════════════════════════════════════════
+     PISCADA ALEATÓRIA
+  ══════════════════════════════════════════ */
   function scheduleBlink() {
-    const delay = 2000 + Math.random() * 3000;
     setTimeout(() => {
-      owls.forEach(o => {
+      /* Às vezes só uma coruja pisca, às vezes todas */
+      const targets = Math.random() < 0.5 ? owls : [owls[Math.floor(Math.random() * owls.length)]];
+      targets.forEach(o => {
         o.classList.add('blinking');
         setTimeout(() => o.classList.remove('blinking'), 160);
       });
       scheduleBlink();
-    }, delay);
+    }, 1800 + Math.random() * 3200);
   }
   scheduleBlink();
 
-  /* ══════════════════════════════════
-     OLHAR PARA O INPUT
-  ══════════════════════════════════ */
+  /* ══════════════════════════════════════════
+     FORMATAR CHAVE
+  ══════════════════════════════════════════ */
   const keyEl = document.getElementById('key-input');
-  let lookTimer;
 
-  function lookAtInput() {
-    owls.forEach(o => o.classList.add('look-left'));
-  }
-  function lookForward() {
-    owls.forEach(o => o.classList.remove('look-left'));
-  }
-
-  keyEl.addEventListener('focus', lookAtInput);
-  keyEl.addEventListener('blur',  () => {
-    clearTimeout(lookTimer);
-    lookForward();
-  });
   keyEl.addEventListener('input', () => {
-    lookAtInput();
-    clearTimeout(lookTimer);
-    lookTimer = setTimeout(lookForward, 2500);
-    formatKey();
-  });
-  keyEl.addEventListener('keydown', e => { if (e.key === 'Enter') verifyKey(); });
-
-  /* ══════════════════════════════════
-     FORMATAR CHAVE CF-XXXX-XXXX-XXXX
-  ══════════════════════════════════ */
-  function formatKey() {
     const raw   = keyEl.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 14);
     const parts = [];
     if (raw.length > 0)  parts.push(raw.slice(0, 2));
@@ -741,38 +858,42 @@
     if (raw.length > 10) parts.push(raw.slice(10, 14));
     keyEl.value = parts.join('-');
     clearError();
-  }
+  });
 
-  /* ══════════════════════════════════
+  keyEl.addEventListener('keydown', e => { if (e.key === 'Enter') verifyKey(); });
+
+  /* ══════════════════════════════════════════
      REAÇÕES: SUCESSO E ERRO
-  ══════════════════════════════════ */
+  ══════════════════════════════════════════ */
   function reactSuccess() {
-    owls.forEach(o => {
-      o.classList.add('happy');
-      o.classList.add('jumping');
-      setTimeout(() => o.classList.remove('jumping'), 700);
+    owls.forEach((o, i) => {
+      setTimeout(() => {
+        o.classList.add('happy', 'jumping');
+        setTimeout(() => o.classList.remove('jumping'), 750);
+      }, i * 80);
     });
 
-    // Estrelas
-    ['star1','star2','star3'].forEach((id, i) => {
-      const s = document.getElementById(id);
+    /* Estrelas */
+    document.querySelectorAll('.star').forEach((s, i) => {
       setTimeout(() => {
-        s.style.animation = 'star-burst 0.7s ease forwards';
-        setTimeout(() => s.style.animation = '', 800);
-      }, i * 100);
+        s.style.animation = 'star-burst 0.8s ease forwards';
+        setTimeout(() => { s.style.animation = ''; }, 900);
+      }, i * 90);
     });
   }
 
   function reactError() {
-    owls.forEach(o => {
-      o.classList.add('shaking');
-      setTimeout(() => o.classList.remove('shaking'), 500);
+    owls.forEach((o, i) => {
+      setTimeout(() => {
+        o.classList.add('shaking');
+        setTimeout(() => o.classList.remove('shaking'), 500);
+      }, i * 60);
     });
   }
 
-  /* ══════════════════════════════════
+  /* ══════════════════════════════════════════
      VERIFICAR CHAVE
-  ══════════════════════════════════ */
+  ══════════════════════════════════════════ */
   async function verifyKey() {
     const key = keyEl.value.trim();
     const btn = document.getElementById('btn-unlock');
@@ -781,7 +902,6 @@
 
     btn.disabled = true;
     btn.innerHTML = '<div class="spinner"></div> Verificando...';
-    lookAtInput();
 
     try {
       const res  = await fetch(`${SCRIPT_URL}?action=download&key=${encodeURIComponent(key)}`, { redirect: 'follow' });
@@ -794,7 +914,7 @@
         setTimeout(() => {
           document.getElementById('screen-auth').classList.add('hidden');
           document.getElementById('screen-download').classList.remove('hidden');
-        }, 800);
+        }, 1000);
       } else {
         showError(data.msg || 'Chave inválida. Verifique o email de compra.');
         reactError();
@@ -809,13 +929,11 @@
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
       </svg>Liberar Acesso`;
-    lookForward();
   }
 
   function showError(msg) {
-    const box = document.getElementById('error-box');
     document.getElementById('error-text').textContent = msg;
-    box.classList.add('show');
+    document.getElementById('error-box').classList.add('show');
     keyEl.classList.add('error-state');
   }
   function clearError() {
@@ -823,15 +941,14 @@
     keyEl.classList.remove('error-state');
   }
 
-  /* ══════════════════════════════════
+  /* ══════════════════════════════════════════
      DOWNLOAD
-  ══════════════════════════════════ */
+  ══════════════════════════════════════════ */
   function startDownload(platform) {
     const url = urls[platform];
     if (!url) { alert('URL indisponível. Contate @leopatrizzi'); return; }
     window.open(url, '_blank');
   }
 </script>
-
 </body>
 </html>
