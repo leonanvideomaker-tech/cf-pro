@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caption Flow Pro — Download</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #0e0e0e;
+      --bg-card:      #161616;
+      --bg-input:     #1c1b1b;
+      --bg-hover:     #2a2929;
+      --border:       rgba(72,72,71,0.25);
+      --border-focus: rgba(255,109,41,0.45);
+      --text-1:       #ffffff;
+      --text-2:       #adaaaa;
+      --text-3:       #6e6e6e;
+      --accent:       #FF6D29;
+      --accent-light: #ff9063;
+      --green:        #30d158;
+      --red:          #ff453a;
+      --radius:       10px;
+      --radius-lg:    14px;
+    }
+
+    html, body {
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      background: var(--bg);
+      color: var(--text-1);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Grain texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Ambient glows */
+    .glow-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .glow-purple {
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(90,60,200,0.07) 0%, transparent 65%);
+      border-radius: 50%;
+    }
+    .glow-orange {
+      position: absolute;
+      bottom: -15%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,109,41,0.04) 0%, transparent 65%);
+      border-radius: 50%;
+    }
+
+    /* Layout */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    /* Card */
+    .card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      padding: 44px 48px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,109,41,0.35), transparent);
+    }
+
+    /* Screen transitions */
+    .screen {
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .screen.hidden {
+      display: none;
+    }
+
+    /* ─── Logo ─────────────────────────────────────────── */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #ff9063 0%, #FF6D29 100%);
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(255,109,41,0.28);
+      flex-shrink: 0;
+    }
+    .logo-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text-1);
+    }
+    .logo-wordmark em {
+      font-style: normal;
+      background: linear-gradient(135deg, #ff9063 0%, #FF6D29 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .pro-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 5px;
+      background: linear-gradient(160deg, #1e0d03 0%, #0e0e0e 100%);
+      border: 1px solid rgba(255,109,41,0.35);
+      box-shadow: 0 1px 5px rgba(255,109,41,0.18), inset 0 1px 0 rgba(255,109,41,0.08);
+      color: #FF6D29;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* ─── Auth screen ──────────────────────────────────── */
+    #screen-auth {
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .auth-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .auth-subtitle {
+      color: var(--text-2);
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 32px;
+    }
+    .auth-subtitle .spam-note {
+      display: block;
+      margin-top: 6px;
+      color: var(--text-3);
+      font-size: 12px;
+    }
+
+    .input-label {
+      display: block;
+      color: var(--text-2);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .key-input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-1);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      padding: 15px 18px;
+      text-align: center;
+      text-transform: uppercase;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .key-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(255,109,41,0.08);
+    }
+    .key-input::placeholder {
+      color: var(--text-3);
+      letter-spacing: 2px;
+    }
+    .key-input.error-state {
+      border-color: rgba(255,69,58,0.5);
+      box-shadow: 0 0 0 3px rgba(255,69,58,0.08);
+    }
+
+    .error-box {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 10px;
+      background: rgba(255,69,58,0.07);
+      border: 1px solid rgba(255,69,58,0.2);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+    .error-box.show { display: flex; }
+    .error-box svg { flex-shrink: 0; }
+
+    .btn-unlock {
+      width: 100%;
+      background: linear-gradient(135deg, #ff9063 0%, #FF6D29 100%);
+      border: none;
+      border-radius: var(--radius);
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 16px 24px;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 4px 22px rgba(255,109,41,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .btn-unlock:hover { opacity: 0.88; box-shadow: 0 6px 28px rgba(255,109,41,0.4); }
+    .btn-unlock:active { transform: scale(0.98); }
+    .btn-unlock:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* ─── Download screen ──────────────────────────────── */
+    #screen-download {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .congrats-glyph {
+      width: 58px;
+      height: 58px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, rgba(255,144,99,0.12) 0%, rgba(255,109,41,0.12) 100%);
+      border: 1px solid rgba(255,109,41,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .download-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      margin-bottom: 6px;
+    }
+    .download-sub {
+      color: var(--text-2);
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .platform-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .platform-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .platform-card:hover {
+      border-color: rgba(255,109,41,0.22);
+      background: rgba(255,109,41,0.03);
+    }
+
+    .platform-icon-wrap {
+      width: 46px;
+      height: 46px;
+      border-radius: 11px;
+      background: var(--bg-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .platform-icon-wrap svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--text-2);
+    }
+
+    .platform-info { flex: 1; min-width: 0; }
+    .platform-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-1);
+      margin-bottom: 3px;
+    }
+    .platform-compat {
+      font-size: 11px;
+      color: var(--text-3);
+    }
+
+    .btn-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,109,41,0.35);
+      background: transparent;
+      color: var(--accent);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+    .btn-dl:hover {
+      background: rgba(255,109,41,0.08);
+      border-color: rgba(255,109,41,0.55);
+      box-shadow: 0 0 14px rgba(255,109,41,0.12);
+    }
+    .btn-dl:active { transform: scale(0.97); }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(72,72,71,0.3), transparent);
+      margin: 28px 0;
+    }
+
+    .support-line {
+      text-align: center;
+      color: var(--text-3);
+      font-size: 12px;
+    }
+    .support-line a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .support-line a:hover { text-decoration: underline; }
+
+    /* Spinner */
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #2a2929; border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<div class="glow-bg">
+  <div class="glow-purple"></div>
+  <div class="glow-orange"></div>
+</div>
+
+<div class="wrapper">
+  <div class="card">
+
+    <!-- ── TELA 1: Chave de ativação ─────────────────────── -->
+    <div class="screen" id="screen-auth">
+      <div class="logo">
+        <div class="logo-icon">
+          <!-- Clapperboard icon -->
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1-.3 2.1.3 2.4 1.3Z"/>
+            <path d="m6.2 5.3 3.1 3.9"/>
+            <path d="m12.4 3.4 3.1 3.9"/>
+            <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>
+          </svg>
+        </div>
+        <div class="logo-wordmark">Caption <em>Flow</em></div>
+        <div class="pro-badge">PRO</div>
+      </div>
+
+      <h1 class="auth-heading">Acesse sua versão Pro</h1>
+      <p class="auth-subtitle">
+        Insira a chave de ativação que você recebeu por email após a compra.
+        <span class="spam-note">Não encontrou o email? Confira sua caixa de spam.</span>
+      </p>
+
+      <label class="input-label" for="key-input">Chave de ativação</label>
+      <input
+        type="text"
+        id="key-input"
+        class="key-input"
+        placeholder="CF-XXXX-XXXX-XXXX"
+        autocomplete="off"
+        spellcheck="false"
+        maxlength="19"
+      >
+      <div class="error-box" id="error-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="error-text">Chave inválida. Verifique o email de compra.</span>
+      </div>
+
+      <button class="btn-unlock" id="btn-unlock" onclick="verifyKey()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        Liberar Acesso
+      </button>
+    </div>
+
+    <!-- ── TELA 2: Downloads ─────────────────────────────── -->
+    <div class="screen hidden" id="screen-download">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1-.3 2.1.3 2.4 1.3Z"/>
+            <path d="m6.2 5.3 3.1 3.9"/>
+            <path d="m12.4 3.4 3.1 3.9"/>
+            <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>
+          </svg>
+        </div>
+        <div class="logo-wordmark">Caption <em>Flow</em></div>
+        <div class="pro-badge">PRO</div>
+      </div>
+
+      <div class="congrats-glyph">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FF6D29" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      </div>
+
+      <h2 class="download-heading">Parabéns pelo seu investimento</h2>
+      <p class="download-sub">Faça o download agora de acordo com o seu dispositivo.</p>
+
+      <div class="platform-cards">
+
+        <!-- Mac -->
+        <div class="platform-card">
+          <div class="platform-icon-wrap">
+            <svg viewBox="0 0 814 1000" xmlns="http://www.w3.org/2000/svg">
+              <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 376.7 0 248.7 0 126.8 0 56.7 20.2 16 60.6 16c31.5 0 92.2 33.3 167 33.3 73 0 133.4-33.3 175.7-33.3 51.1 0 72.5 15.5 101.5 38.2-19 27.3-53.5 97.7-53.5 193.7 0 81.5 40.3 153.4 80.4 195.4-11.3 11.3-26.4 19.3-43.2 19.3z"/>
+            </svg>
+          </div>
+          <div class="platform-info">
+            <div class="platform-name">Mac</div>
+            <div class="platform-compat">macOS 10.14 Mojave ou superior</div>
+          </div>
+          <a class="btn-dl" id="link-mac" href="#" onclick="startDownload('mac'); return false;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download Mac
+          </a>
+        </div>
+
+        <!-- Windows -->
+        <div class="platform-card">
+          <div class="platform-icon-wrap">
+            <svg viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 12.402l35.687-4.86.016 34.423-35.67.201zm35.67 33.529l.028 34.453L.028 75.48.026 45.7zm4.326-39.025L87.314 0v41.527l-47.318.376zm47.329 39.349-.011 41.34-47.318-6.678-.066-34.739z"/>
+            </svg>
+          </div>
+          <div class="platform-info">
+            <div class="platform-name">Windows</div>
+            <div class="platform-compat">Windows 10 ou superior</div>
+          </div>
+          <a class="btn-dl" id="link-windows" href="#" onclick="startDownload('windows'); return false;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download Windows
+          </a>
+        </div>
+
+      </div>
+
+      <div class="divider"></div>
+
+      <p class="support-line">
+        Dúvidas na instalação? Fale com <a href="https://instagram.com/leopatrizzi" target="_blank">@leopatrizzi</a>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  /* ── Config ────────────────────────────────────────────────────── */
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz9bwJh4BmYzkl7YvL0I9yMIzIgDkbOziSriq46QSACFe2mFLkrgPxxV5kUwkPYuz1a/exec';
+
+  let urls = { mac: null, windows: null };
+
+  /* ── Auto-formata CF-XXXX-XXXX-XXXX ──────────────────────────── */
+  const keyEl = document.getElementById('key-input');
+
+  keyEl.addEventListener('input', function () {
+    const raw = this.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 14);
+    const parts = [];
+    if (raw.length > 0)  parts.push(raw.substring(0, 2));
+    if (raw.length > 2)  parts.push(raw.substring(2, 6));
+    if (raw.length > 6)  parts.push(raw.substring(6, 10));
+    if (raw.length > 10) parts.push(raw.substring(10, 14));
+    this.value = parts.join('-');
+    clearError();
+  });
+
+  keyEl.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') verifyKey();
+  });
+
+  /* ── Verificar chave ──────────────────────────────────────────── */
+  async function verifyKey() {
+    const key = keyEl.value.trim();
+    const btn = document.getElementById('btn-unlock');
+
+    if (!key) {
+      showError('Por favor, insira sua chave de ativação.');
+      return;
+    }
+
+    // Estado de loading
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner"></div> Verificando...';
+
+    try {
+      const apiUrl = `${SCRIPT_URL}?action=download&key=${encodeURIComponent(key)}`;
+      const res = await fetch(apiUrl, { redirect: 'follow' });
+      const data = await res.json();
+
+      if (data.valid) {
+        // Monta a URL de download com base nos nomes de arquivo retornados pelo Apps Script
+        // Os arquivos ficam em /files/ e os nomes contêm UUIDs não adivináveis
+        urls.mac     = data.mac_url;
+        urls.windows = data.windows_url;
+        goToDownloads();
+      } else {
+        showError(data.msg || 'Chave inválida. Verifique o email de compra.');
+      }
+    } catch (err) {
+      showError('Erro de conexão. Tente novamente em instantes.');
+    }
+
+    // Reset botão
+    btn.disabled = false;
+    btn.innerHTML = `
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      Liberar Acesso`;
+  }
+
+  function showError(msg) {
+    const box = document.getElementById('error-box');
+    document.getElementById('error-text').textContent = msg;
+    box.classList.add('show');
+    keyEl.classList.add('error-state');
+  }
+
+  function clearError() {
+    document.getElementById('error-box').classList.remove('show');
+    keyEl.classList.remove('error-state');
+  }
+
+  /* ── Transição para tela de downloads ────────────────────────── */
+  function goToDownloads() {
+    document.getElementById('screen-auth').classList.add('hidden');
+    document.getElementById('screen-download').classList.remove('hidden');
+  }
+
+  /* ── Iniciar download ─────────────────────────────────────────── */
+  function startDownload(platform) {
+    const url = urls[platform];
+    if (!url) {
+      alert('URL de download indisponível. Entre em contato: @leopatrizzi');
+      return;
+    }
+    // Abre em nova aba para não perder a página
+    window.open(url, '_blank');
+  }
+</script>
+
+</body>
+</html>
